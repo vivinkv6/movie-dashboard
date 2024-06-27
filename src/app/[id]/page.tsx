@@ -30,7 +30,7 @@ export default async function MovieDetails({
   
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-4 flex justify-center items-center">
+    <div className="min-h-screen bg-gray-900 text-white p-4 max-sm:p-0  flex justify-center items-center">
       <div className="max-w-4xl w-full bg-gray-800 p-6 rounded-lg shadow-lg">
         <div className="flex flex-col md:flex-row">
           <div className="flex-shrink-0" key={movie.id}>
@@ -53,7 +53,7 @@ export default async function MovieDetails({
                 {movie.adult ? "A" : "U/A"}
               </span>{" "}
               • <span>{(movie.runtime / 60).toFixed(1)}h</span> •{" "}
-              <span className="bg-gray-400 text-white rounded-sm py-1 px-2">
+              <span className="bg-blue-500 text-white rounded-sm py-1 px-2">
                 {movie.status}
               </span>
             </div>
