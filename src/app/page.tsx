@@ -47,7 +47,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <header
-        className={`bg-gray-950 p-4 md:w-1/4 text-center text-3xl font-bold md:fixed md:top-0 md:left-0 `}
+        className={`bg-gray-950 p-4 md:w-1/4 text-center text-3xl font-bold md:fixed md:top-0 md:left-0  md:text-lg xl:text-xl h-full`}
       >
         MOVIE DASHBOARD
       </header>
