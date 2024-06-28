@@ -13,6 +13,15 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '-1000px 500px' },
+          '100%': { backgroundPosition: '1000px -500px' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 7s infinite linear',
+      },
     },
   },
   plugins: [],
