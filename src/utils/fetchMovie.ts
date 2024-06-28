@@ -1,6 +1,4 @@
 export const fetchMovie = async (url: string) => {
-  const response = await fetch(url,{
-    cache:'force-cache'
-  });
+  const response = await fetch(url);
   return response.json();
 };
