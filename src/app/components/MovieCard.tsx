@@ -43,11 +43,10 @@ async function MovieCard({ genre, searchMovie }: MovieCardProp) {
                   src={`https://image.tmdb.org/t/p/w500${
                     !movie.poster_path ? movie.backdrop_path : movie.poster_path
                   }`}
-                  loading="lazy"
                   width={290}
                   height={50}
                   className="rounded-md "
-                  alt={movie.poster_path}
+                  alt={movie.title}
                 />
                 <p className={`${roboto.className} text-xl  m-2`}>
                   {movie.title}
