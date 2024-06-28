@@ -37,6 +37,7 @@ export default async function MovieDetails({
             {/* <div className="bg-gray-700 w-64 h-80 rounded-lg"> */}
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              unoptimized
               className="rounded-md"
               height={300}
               width={250}
@@ -103,6 +104,7 @@ export default async function MovieDetails({
                     {cast.profile_path ? (
                       <Image
                         src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+                        unoptimized
                         className="rounded-md"
                         height={300}
                         width={550}
@@ -112,6 +114,7 @@ export default async function MovieDetails({
                       <Image
                         src={Male}
                         className="rounded-md h-60 w-60"
+                        unoptimized
                         alt={cast.name}
                       />
                     )}

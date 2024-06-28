@@ -43,6 +43,7 @@ async function MovieCard({ genre, searchMovie }: MovieCardProp) {
                   src={`https://image.tmdb.org/t/p/w500${
                     !movie.poster_path ? movie.backdrop_path : movie.poster_path
                   }`}
+                  unoptimized
                   width={290}
                   height={50}
                   className="rounded-md "
