@@ -25,9 +25,10 @@ export default async function MovieDetails({
     castDetails,
     trailerDetails,
   ]);
-  const videoId = trailer?.results?.find((video:any) => video?.type == "Teaser");
+  const videoId = trailer?.results?.find(
+    (video: any) => video?.type == "Teaser"
+  );
   console.log(movie);
-  
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4 max-sm:p-0  flex justify-center items-center">
@@ -64,7 +65,7 @@ export default async function MovieDetails({
               )}
             </div>
             <div className="flex flex-row justify-start gap-5">
-              {trailer?.results?.length > 0&& (
+              {trailer?.results?.length > 0 && (
                 <Link
                   href={`/${params.id}/video/${
                     videoId ? videoId.key : trailer?.results[0]?.key
@@ -73,7 +74,7 @@ export default async function MovieDetails({
                 >
                   Play Trailer
                 </Link>
-              )} 
+              )}
               <div className="flex items-center mb-4">
                 <span className="text-yellow-500 text-xl">★</span>
                 <span className="ml-2 text-gray-400">
@@ -81,14 +82,16 @@ export default async function MovieDetails({
                 </span>
               </div>
             </div>
+            <div className="text-gray-400 mt-4">
+            <p>{movie.overview}</p>
           </div>
+          </div>
+         
         </div>
 
-        <div className="text-gray-400 mt-4">
-          <p>{movie.overview}</p>
-        </div>
-
-        {casts?.casts && <h3 className="text-xl font-bold mt-6">Cast</h3>}
+        {casts?.cast?.length > 0 && (
+          <h3 className="text-xl font-bold mt-6">Cast</h3>
+        )}
         <div className="flex flex-row overflow-x-scroll gap-10 mt-4">
           {casts?.cast?.map(
             (cast: {
