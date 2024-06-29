@@ -1,6 +1,6 @@
 import { fetchMovie } from "@/utils/fetchMovie";
 import Image from "next/image";
-import Male from "../../../public/male.jpg";
+import Male from "/public/male.jpg";
 import Link from "next/link";
 
 export default async function MovieDetails({
