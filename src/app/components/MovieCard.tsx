@@ -27,8 +27,8 @@ async function MovieCard({ genre, searchMovie }: MovieCardProp) {
   return (
     <>
       {movies?.length < 1 && (
-        <div className="md:flex md:flex-row md:h-[100dvh] md:w-[100%] md:justify-center md:items-center bg-red-500">
-          <div className="border-2 border-orange-500 p-5 rounded-md">
+        <div className="md:flex md:flex-row md:h-[100dvh] md:w-[100%] md:justify-center md:items-center">
+          <div className="border-2 border-orange-500 p-5 rounded-md bg-red-500">
             <h1>{searchMovie}: Movies not found</h1>
           </div>
         </div>
