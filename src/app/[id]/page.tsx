@@ -1,8 +1,19 @@
 import { fetchMovie } from "@/utils/fetchMovie";
 import Image from "next/image";
-import Male from "/public/male.jpg";
+import Male from "../../../public/male.jpg";
 import Link from "next/link";
+import { Metadata } from "next";
 
+export const generateMetadata=async ({params}:{params:{id:string}}):Promise<Metadata>=>{
+  const movieDetails = await fetchMovie(
+    `https://api.themoviedb.org/3/movie/${params.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+  );
+  return{
+    title:{
+      absolute:movieDetails?.title
+    },
+  }
+}
 export default async function MovieDetails({
   params,
 }: {
