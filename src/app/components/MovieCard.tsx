@@ -3,6 +3,7 @@ import { Movie } from "@/types/movie.type";
 import { fetchMovie } from "@/utils/fetchMovie";
 import Image from "next/image";
 import Link from "next/link";
+import SkeletonCard from "./SkeletonCard";
 
 type MovieCardProp = {
   genre: number;
@@ -10,6 +11,10 @@ type MovieCardProp = {
 };
 
 async function MovieCard({ genre, searchMovie }: MovieCardProp) {
+
+  // const imageLoader = ({ src, width, quality }) => {
+  //   return `https://example.com/${src}?w=${width}&q=${quality || 75}`
+  // }
   let movies: Movie[] = [];
   const page = Math.floor(Math.random() * 100) + 1;
   if (!searchMovie) {

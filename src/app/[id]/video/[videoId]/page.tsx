@@ -1,5 +1,6 @@
-"use client";
+
 import ReactPlayer from "react-player";
+import {YouTubeEmbed} from '@next/third-parties/google'
 
 function VideoTrailer({
   params,
@@ -12,12 +13,7 @@ function VideoTrailer({
 
   return (
     <div className="h-[100vh] w-[100%] bg-gray-950 flex justify-center items-center">
-      <ReactPlayer
-        url={`https://www.youtube.com/watch?v=${params.videoId}`}
-        playing
-        controls
-        loop={false}
-      />
+      <YouTubeEmbed videoid={params.videoId} width={500} height={500}  key={params.videoId}/>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Male from "../../../public/male.jpg";
 import Link from "next/link";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 export const generateMetadata=async ({params}:{params:{id:string}}):Promise<Metadata>=>{
   const movieDetails = await fetchMovie(
@@ -36,6 +37,7 @@ export default async function MovieDetails({
     castDetails,
     trailerDetails,
   ]);
+
   const videoId = trailer?.results?.find(
     (video: any) => video?.type == "Teaser"
   );
