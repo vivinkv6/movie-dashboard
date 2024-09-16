@@ -73,8 +73,8 @@ export default async function MovieDetails({
             </div>
             <div className="text-gray-400 mb-4">
               {movie.genres.map(
-                (genre: { id: string; name: string }) => genre.name
-              )}
+                (genre: { id: string; name: string }) => genre.name + ' | '
+              )} 
             </div>
             <div className="flex flex-row justify-start gap-5 ">
               {trailer?.results?.length > 0 && (
