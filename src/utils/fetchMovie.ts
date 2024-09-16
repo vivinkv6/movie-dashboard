@@ -1,11 +1,16 @@
-
 import { notFound } from "next/navigation";
 export const fetchMovie = async (url: string) => {
-  const response = await fetch(url,{
-    signal:AbortSignal.timeout(5000)
-  });
-  if(!response.ok){
-      notFound()
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      console.log("Not Found Error");
+
+      notFound();
+    }
+    return response.json();
+  } catch (error) {
+    console.log("Error Detected");
+
+    console.log(error);
   }
-  return response.json();
 };

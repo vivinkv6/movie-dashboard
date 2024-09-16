@@ -4,17 +4,22 @@ import Male from "../../../public/male.jpg";
 import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Modal from "../components/Modals";
 
-export const generateMetadata=async ({params}:{params:{id:string}}):Promise<Metadata>=>{
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> => {
   const movieDetails = await fetchMovie(
     `https://api.themoviedb.org/3/movie/${params.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
-  return{
-    title:{
-      absolute:movieDetails?.title
+  return {
+    title: {
+      absolute: movieDetails?.title,
     },
-  }
-}
+  };
+};
 export default async function MovieDetails({
   params,
 }: {
@@ -28,25 +33,19 @@ export default async function MovieDetails({
   const castDetails = fetchMovie(
     `https://api.themoviedb.org/3/movie/${params.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
-  const trailerDetails = fetchMovie(
+
+  const [movie, casts] = await Promise.all([movieDetails, castDetails]);
+
+  const trailer = await fetchMovie(
     `https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
 
-  const [movie, casts, trailer] = await Promise.all([
-    movieDetails,
-    castDetails,
-    trailerDetails,
-  ]);
-
-  const videoId = trailer?.results?.find(
-    (video: any) => video?.type == "Teaser"
-  );
-  console.log(movie);
+  let star = "★";
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4 max-sm:p-0  flex justify-center items-center">
       <div className="max-w-4xl w-full bg-gray-800 p-6 rounded-lg shadow-lg">
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-row max-sm:flex-col max-sm:gap-0 max-md:gap-5 ">
           <div className="flex-shrink-0" key={movie.id}>
             {/* <div className="bg-gray-700 w-64 h-80 rounded-lg"> */}
             <Image
@@ -74,32 +73,29 @@ export default async function MovieDetails({
             </div>
             <div className="text-gray-400 mb-4">
               {movie.genres.map(
-                (genre: { id: string; name: string }) => genre.name + " | "
+                (genre: { id: string; name: string }) => genre.name
               )}
             </div>
-            <div className="flex flex-row justify-start gap-5">
+            <div className="flex flex-row justify-start gap-5 ">
               {trailer?.results?.length > 0 && (
-                <Link
-                  href={`/${params.id}/video/${
-                    videoId ? videoId.key : trailer?.results[0]?.key
-                  }`}
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md mb-4"
-                >
-                  Play Trailer
-                </Link>
+                <Modal videoId={trailer?.results[0]?.key} />
               )}
-              <div className="flex items-center mb-4">
-                <span className="text-yellow-500 text-xl">★</span>
-                <span className="ml-2 text-gray-400">
-                  {movie.vote_average.toFixed(1)}
+
+              <div className="flex items-center">
+                <span className="text-yellow-500 text-3xl">
+                  {" "}
+                  {movie.vote_average < 5
+                    ? star.repeat(Math.round(movie.vote_average))
+                    : star.repeat(Math.round(movie.vote_average) / 2)}
                 </span>
               </div>
             </div>
-            <div className="text-gray-400 mt-4">
-            <p>{movie.overview}</p>
+            <div className="text-gray-400 mt-4 ">
+              <p className="max-lg:h-36 max-lg:text-ellipsis overflow-hidden whitespace-wrap">
+                {movie.overview}
+              </p>
+            </div>
           </div>
-          </div>
-         
         </div>
 
         {casts?.cast?.length > 0 && (
