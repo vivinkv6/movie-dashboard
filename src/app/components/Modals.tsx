@@ -18,7 +18,7 @@ const Modal = ({ videoId }: { videoId: string }) => {
 
       {isOpen && (
         <div className="fixed  inset-0 flex items-center justify-center z-50 bg-opacity-90 bg-black">
-              <Image src={close}  width={30} height={30} alt="Close" className="absolute top-10  max-sm:right-[0%] max-sm:top-6 right-[27%] cursor-pointer" onClick={()=>setIsOpen(false)}/>
+              <Image src={close} unoptimized  width={30} height={30} alt="Close" className="absolute top-10  max-sm:right-[0%] max-sm:top-6 right-[27%] cursor-pointer" onClick={()=>setIsOpen(false)}/>
               
               <YouTubeEmbed
                 videoid={videoId}
