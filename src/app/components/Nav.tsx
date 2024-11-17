@@ -10,6 +10,7 @@ import { genres } from "@/constant/genres";
 import { useGenreStore } from "@/store/genreStore";
 import clsx from "clsx";
 import { useSearchStore } from "@/store/searchStore";
+import { useRouter } from "next/navigation";
 
 function Nav() {
   const genre = useGenreStore((state) => state.genre);
@@ -17,6 +18,7 @@ function Nav() {
   const addSearch = useSearchStore((state) => state.addSearch);
   const searchMovie = useSearchStore((state) => state.searchMovie);
   const [search, setSearch] = useState<string>(searchMovie);
+  const router=useRouter();
 
   return (
     <nav className="w-full md:w-1/4 bg-gray-950 p-4 md:fixed md:top-16 md:left-0 md:h-[100dvh]">
@@ -33,6 +35,7 @@ function Nav() {
           onClick={() => {
             addSearch(search);
             console.log(search);
+            router.replace(`/?search=${search}`)
           }}
         >
           Search
@@ -45,6 +48,9 @@ function Nav() {
               onClick={() => {
                 addGenre(category.id);
                 addSearch("");
+
+                router.replace(`/?genre=${category.id}`)
+                
               }}
               className={clsx(
                 "w-full max-sm:w-auto text-left p-2 rounded bg-gray-900 hover:bg-gray-600",

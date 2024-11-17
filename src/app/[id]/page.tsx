@@ -5,21 +5,75 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Modal from "../components/Modals";
+import { Movie } from "@/types/movie.type";
+
+export const revalidate = 60;
+export const dynamicParams=true;
+
+
+export const generateStaticParams = async () => {
+  const movies = await fetchMovie(
+    `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+  );
+  
+  return movies.results.map((movie: { id: number }) => ({
+    id: movie.id.toString()
+  }));
+}
 
 export const generateMetadata = async ({
   params,
 }: {
   params: { id: string };
 }): Promise<Metadata> => {
-  const movieDetails = await fetchMovie(
+  const movieDetails:Movie = await fetchMovie(
     `https://api.themoviedb.org/3/movie/${params.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
   return {
     title: {
       absolute: movieDetails?.title,
     },
+    description:movieDetails?.overview,
+    keywords:[movieDetails?.title,movieDetails?.original_title],
+    openGraph:{
+      title:movieDetails?.title,
+      description:movieDetails?.overview,
+      images:[{
+        url:`https://image.tmdb.org/t/p/w500${movieDetails?.poster_path}`,
+        width:800,
+        height:600,
+        alt:movieDetails?.title
+      },{
+        url:`https://image.tmdb.org/t/p/w500${movieDetails?.backdrop_path}`,
+        width:800,
+        height:600,
+        alt:movieDetails?.title  
+      }]
+    },
+    twitter:{
+      title:movieDetails?.title,
+      description:movieDetails?.overview,
+      images:[{
+        url:`https://image.tmdb.org/t/p/w500${movieDetails?.poster_path}`,
+        width:800,
+        height:600,
+        alt:movieDetails?.title
+      },
+      {
+        url:`https://image.tmdb.org/t/p/w500${movieDetails?.backdrop_path}`,
+        width:800,
+        height:600,
+        alt:movieDetails?.title  
+      }],
+      
+    },
+    robots:{
+      index:true
+    }
   };
 };
+
+
 export default async function MovieDetails({
   params,
 }: {
@@ -30,11 +84,16 @@ export default async function MovieDetails({
   const movieDetails = fetchMovie(
     `https://api.themoviedb.org/3/movie/${params.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
+
   const castDetails = fetchMovie(
     `https://api.themoviedb.org/3/movie/${params.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
 
   const [movie, casts] = await Promise.all([movieDetails, castDetails]);
+
+  if (!movie || movie.success === false) {
+    notFound();
+  }
 
   const trailer = await fetchMovie(
     `https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
