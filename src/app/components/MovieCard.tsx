@@ -34,7 +34,7 @@ async function MovieCard({ movies }: MovieCardProp) {
         return (
           <Fragment key={movie.id}>
             {(movie.poster_path || movie.backdrop_path) && (
-              <div className="bg-gray-950 p-4 w-[280px] max-sm:w-[400px]">
+              <div className="bg-gray-950 p-4 w-[280px] max-sm:w-[300px]">
                 <Link href={`/${movie.id}`}>
                   <div className="rounded-lg hover:shadow-md hover:shadow-orange-500 transition-shadow duration-300">
                     <div className="aspect-[2/3] relative">
