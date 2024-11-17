@@ -35,6 +35,25 @@ export const generateMetadata = async ({
     },
     description:movieDetails?.overview,
     keywords:[movieDetails?.title,movieDetails?.original_title],
+    publisher:movieDetails.original_title,
+    authors:[{
+      name:movieDetails.original_title,
+      url:`https://image.tmdb.org/t/p/w500${movieDetails?.poster_path}`
+    }],
+    creator:movieDetails.original_title,
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
     openGraph:{
       title:movieDetails?.title,
       description:movieDetails?.overview,
@@ -67,9 +86,6 @@ export const generateMetadata = async ({
       }],
       
     },
-    robots:{
-      index:true
-    }
   };
 };
 
